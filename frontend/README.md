@@ -1,38 +1,60 @@
-# sv
+# Accessiblent – Frontend
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Svelte + Tailwind frontend for the Accessiblent project. Provides the user interface for auditing websites, reviewing fixes, and interacting with the AI-powered chat.
 
-## Creating a project
+---
 
-If you're seeing this, you've probably already done this step. Congrats!
+## 🚀 Features
 
-```sh
-# create a new project in the current directory
-npx sv create
+* Clean, accessible UI built with **Svelte + Tailwind CSS**.
+* Input validation for website URLs (with or without `http/https`).
+* Multi-view toggle: **Summary**, **Inline Iframe**, **Open in New Tab**, **Chat**.
+* AI-powered chat interface (max 3 questions per session).
+* Text-to-Speech support (play, pause, stop).
 
-# create a new project in my-app
-npx sv create my-app
+---
+
+## ⚙️ Setup
+
+### Prerequisites
+
+* Node.js 18+
+* npm or pnpm
+
+### Installation
+
+```bash
+cd frontend
+npm install
 ```
 
-## Developing
+### Run Dev Server
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
+```bash
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
+Frontend runs at 👉 `http://localhost:5173`
 
-To create a production version of your app:
+---
 
-```sh
-npm run build
+## 🔑 Environment Variables
+
+Create a `.env` file inside `frontend/`:
+
+```
+VITE_API_BASE=http://localhost:8000
 ```
 
-You can preview the production build with `npm run preview`.
+---
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+## 📂 Key Files
+
+```
+frontend/
+│── src/
+│   ├── routes/      # Pages & components
+│   ├── lib/         # Helpers & stores
+│   └── styles/      # Tailwind config
+│── package.json     # Dependencies
+```
