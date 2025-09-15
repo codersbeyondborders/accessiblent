@@ -155,3 +155,8 @@ npm run test
 * [ ] Multi-language TTS
 
 ---
+
+## License
+This project is licensed under the [MIT License](./LICENSE).
+
+---
