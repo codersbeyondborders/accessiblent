@@ -30,7 +30,7 @@ try:
 except Exception:
     openai_client = None  # run without LLM if SDK missing
 
-app = FastAPI(title="A11y Agent – One-Click Pipeline")
+app = FastAPI(title="Accessiblent")
 
 app.add_middleware(
     CORSMiddleware,

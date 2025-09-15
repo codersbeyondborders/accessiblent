@@ -1,0 +1,92 @@
+<!doctype html>
+<!-- Intentionally INACCESSIBLE demo site for testing tools -->
+<!-- Known issues annotated inline as comments -->
+<html>
+  <!-- 1) Missing lang attribute on <html> -->
+  <head>
+    <!-- 2) Missing meta viewport for mobile -->
+    <title>My Site</title> <!-- 3) Generic title on all pages (not unique) -->
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+    <style>
+      /* 4) Removes focus outlines globally (keyboard users can't see focus) */
+      :focus { outline: none !important; }
+    </style>
+  </head>
+  <body>
+    <!-- 5) No skip link -->
+    <div class="topbar" role="navigation">
+      <!-- 6) Low-contrast links on gradient background -->
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" target="_blank">Contact</a> <!-- 7) Opens new tab w/o rel="noopener" -->
+    </div>
+
+    <!-- 8) Heading order starts at h3 -->
+    <h3>Welcome to My Broken Site</h3>
+
+    <!-- 9) Image without alt text -->
+    <img src="13870943-c033-40f7-bcb8-0667d449beb1.jpg" width="300px" height="250px">
+
+    <!-- 10) Auto-playing audio without controls -->
+    <audio autoplay loop src="https://file-examples.com/storage/fe1b1a2c3e1cd48f7d8a7a5/2017/11/file_example_MP3_700KB.mp3"></audio>
+
+    <!-- 11) Blinking/Marquee text (deprecated/animated) -->
+    <div class="blink">Limited time offer!!!</div>
+
+    <!-- 12) Links with vague text and empty hrefs -->
+    <p>
+      To learn more <a href="#">click here</a> or <a href="#" aria-hidden="true">read more</a>!
+      <!-- 13) aria-hidden on interactive element hides it from AT -->
+    </p>
+
+    <!-- 14) Non-unique IDs used multiple times -->
+    <div id="section">Some content</div>
+    <div id="section">More content</div>
+
+    <!-- 15) Non-semantic clickable div with no role, keyboard handler, or tabindex -->
+    <div class="fake-button" onclick="goSomewhere()">Go to About</div>
+
+    <!-- 16) Form controls without labels (placeholders only) -->
+    <form action="/subscribe" method="post">
+      <input type="text" name="fullname" placeholder="Full Name">
+      <input type="email" placeholder="Email"> <!-- missing name -->
+      <input type="checkbox" id="agree"> I agree <!-- label not associated -->
+      <button>Send</button> <!-- type not specified -->
+    </form>
+
+    <!-- 17) Data table without headers -->
+    <table class="prices">
+      <tr><td>Plan</td><td>Price</td><td>Features</td></tr>
+      <tr><td>Basic</td><td>$9</td><td>1 user</td></tr>
+      <tr><td>Pro</td><td>$19</td><td>5 users</td></tr>
+    </table>
+
+    <!-- 18) Duplicate link text pointing to different destinations -->
+    <p>
+      <a href="https://example.com/a">Learn more</a> |
+      <a href="https://example.com/b">Learn more</a>
+    </p>
+
+    <!-- 19) Decorative emoji inserted as text without appropriate hiding or label -->
+    <p class="tiny">🚀 New launch soon</p>
+
+    <!-- 20) Very small touch targets -->
+    <ul class="pagination">
+      <li><a href="page1.html">1</a></li>
+      <li><a href="page2.html">2</a></li>
+      <li><a href="page3.html">3</a></li>
+    </ul>
+
+    <!-- 21) Iframe without title -->
+    <iframe src="about.html" width="300" height="150"></iframe>
+
+    <!-- 22) Color-only indicators -->
+    <p><span class="status status-green">●</span> Active <span class="status status-red">●</span> Inactive</p>
+
+    <!-- Footer links with repeated "click here" -->
+    <footer>
+      <a href="#">click here</a> | <a href="#">click here</a>
+    </footer>
+  </body>
+</html>
