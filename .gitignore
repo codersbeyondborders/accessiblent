@@ -1,0 +1,15 @@
+# Node
+node_modules/
+pnpm-lock.yaml
+package-lock.json
+.yarn/
+.next/
+.svelte-kit/
+.env
+.env.*
+# Python
+__pycache__/
+.venv/
+*.pyc
+# OS
+.DS_Store
