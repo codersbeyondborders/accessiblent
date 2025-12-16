@@ -60,13 +60,26 @@ def _is_visible_text_block(el: Tag) -> bool:
 def extract_chunks(html: str) -> List[Dict[str, Any]]:
     """
     Produce a list of chunks:
-      - role: 'img' | 'heading' | 'link' | 'section'
+      - role: 'img' | 'heading' | 'link' | 'section' | 'document'
       - path: CSS-like path for stable targeting
       - text: normalized inner text ('' for images)
       - attrs: dict of relevant attributes
     """
     soup = BeautifulSoup(html or "", "lxml")
     chunks: List[Dict[str, Any]] = []
+
+    # Document-level checks (html tag, main landmark)
+    html_tag = soup.find("html")
+    if html_tag:
+        chunks.append({
+            "role": "document",
+            "path": "html",
+            "text": "",
+            "attrs": {
+                "lang": (html_tag.get("lang") or "").strip(),
+                "has_main": bool(soup.find("main")),
+            },
+        })
 
     # Images
     for img in soup.find_all("img"):
@@ -158,8 +171,34 @@ def audit(chunks: List[Dict[str, Any]]) -> List[Tuple[str, str, Dict[str, Any], 
       - MISSING_ALT (MEDIUM): <img> with missing/empty alt
       - BAD_HEADING_ORDER (LOW): heading level jumps by > 1
       - POOR_LINK_TEXT (LOW): vague/ambiguous link text
+      - MISSING_LANG (HIGH): <html> without lang attribute
+      - MISSING_MAIN_LANDMARK (MEDIUM): page without <main> element
+      - LINK_NO_NAME (MEDIUM): link without accessible name (no text, no aria-label)
     """
     issues: List[Tuple[str, str, Dict[str, Any], Dict[str, Any]]] = []
+
+    # ---- Document-level checks
+    for c in chunks:
+        if c.get("role") == "document":
+            attrs = _as_dict(c.get("attrs"))
+            
+            # Missing lang attribute
+            if not attrs.get("lang"):
+                issues.append((
+                    "MISSING_LANG",
+                    "HIGH",
+                    {"reason": "HTML element missing lang attribute for screen readers"},
+                    c
+                ))
+            
+            # Missing main landmark
+            if not attrs.get("has_main"):
+                issues.append((
+                    "MISSING_MAIN_LANDMARK",
+                    "MEDIUM",
+                    {"reason": "Page missing <main> landmark for navigation"},
+                    c
+                ))
 
     # ---- Images: missing/empty alt
     for c in chunks:
@@ -195,11 +234,25 @@ def audit(chunks: List[Dict[str, Any]]) -> List[Tuple[str, str, Dict[str, Any], 
     # ---- Links: vague text
     for c in [x for x in chunks if x.get("role") == "link"]:
         text = (c.get("text") or "").strip().lower()
+        attrs = _as_dict(c.get("attrs"))
+        
+        # Check for vague link text
         if text in _VAGUE_LINK_TEXT:
             issues.append((
                 "POOR_LINK_TEXT",
                 "LOW",
                 {"text": c.get("text")},
+                c
+            ))
+        
+        # Check for links with no accessible name
+        aria_label = (attrs.get("aria-label") or "").strip()
+        title = (attrs.get("title") or "").strip()
+        if not text and not aria_label and not title:
+            issues.append((
+                "LINK_NO_NAME",
+                "MEDIUM",
+                {"reason": "Link has no accessible name (no text, aria-label, or title)", "href": attrs.get("href", "")},
                 c
             ))
 

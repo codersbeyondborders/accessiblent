@@ -30,15 +30,15 @@ CREATE TABLE chunk (
   role        VARCHAR(64),
   text        LONGTEXT,
   attrs       JSON,
-  embedding   VECTOR(1536) NULL,
+  embedding   JSON NULL COMMENT 'Vector embedding stored as JSON array for MySQL compatibility',
   created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   INDEX idx_chunk_page (page_id),
   FOREIGN KEY (page_id) REFERENCES page(id) ON DELETE CASCADE
 );
 
--- Add vector index (HNSW) on the embedding column
-ALTER TABLE chunk
-  ADD VECTOR INDEX idx_chunk_embedding (embedding) USING HNSW;
+-- Note: MySQL 9.x doesn't support VECTOR type natively
+-- For production with vector search, use TiDB which has native VECTOR support
+-- For local MySQL, embeddings are stored as JSON arrays
 
 -- ================================
 -- ISSUE table

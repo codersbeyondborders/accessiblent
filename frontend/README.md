@@ -1,6 +1,6 @@
-# Accessiblent – Frontend
+# Accessify – Frontend
 
-Svelte + Tailwind frontend for the Accessiblent project. Provides the user interface for auditing websites, reviewing fixes, and interacting with the AI-powered chat.
+Svelte + Tailwind frontend for the Accessify project. Provides the user interface for auditing websites, reviewing fixes, and interacting with the AI-powered chat.
 
 ---
 

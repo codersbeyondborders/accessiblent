@@ -1,0 +1,333 @@
+/* Accessibility Toolbar Styles */
+.accessify-toolbar {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    background-color: #111827 !important;
+    color: white !important;
+    box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+    z-index: 9999 !important;
+    transition: transform 0.3s ease !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
+
+.accessify-toolbar.minimized {
+    transform: translateY(calc(100% - 2.5rem)) !important;
+}
+
+.accessify-toolbar-container {
+    max-width: 1280px !important;
+    margin: 0 auto !important;
+    padding: 0.75rem 1rem !important;
+}
+
+.accessify-toolbar-content {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 1rem !important;
+    flex-wrap: wrap !important;
+}
+
+.accessify-toolbar-toggle {
+    background: none !important;
+    border: none !important;
+    color: white !important;
+    cursor: pointer !important;
+    padding: 0.25rem !important;
+    transition: color 0.2s !important;
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+.accessify-toolbar-toggle:hover {
+    color: #d1d5db !important;
+}
+
+.accessify-toolbar-toggle svg {
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+    transition: transform 0.2s !important;
+    display: block !important;
+}
+
+.accessify-toolbar-toggle.minimized svg {
+    transform: rotate(180deg) !important;
+}
+
+.accessify-toolbar-controls {
+    display: flex !important;
+    align-items: center !important;
+    gap: 1.5rem !important;
+    flex-wrap: wrap !important;
+}
+
+.accessify-control-group {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+}
+
+.accessify-control-label {
+    font-size: 0.75rem !important;
+    font-weight: 500 !important;
+    color: white !important;
+}
+
+.accessify-btn {
+    background-color: #374151 !important;
+    color: white !important;
+    border: none !important;
+    padding: 0.25rem 0.5rem !important;
+    border-radius: 0.25rem !important;
+    font-size: 0.875rem !important;
+    cursor: pointer !important;
+    transition: background-color 0.2s !important;
+    display: inline-block !important;
+    line-height: 1.5 !important;
+}
+
+.accessify-btn:hover {
+    background-color: #4b5563 !important;
+}
+
+.accessify-btn.active {
+    background-color: #2563eb !important;
+}
+
+.accessify-btn.active:hover {
+    background-color: #1d4ed8 !important;
+}
+
+.accessify-btn-primary {
+    background-color: #2563eb !important;
+    color: white !important;
+    border: none !important;
+    padding: 0.25rem 0.75rem !important;
+    border-radius: 0.25rem !important;
+    font-size: 0.875rem !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    line-height: 1.5 !important;
+}
+
+.accessify-btn-primary:hover {
+    background-color: #1d4ed8 !important;
+}
+
+.accessify-btn-reset {
+    background: none !important;
+    color: #9ca3af !important;
+    text-decoration: underline !important;
+    font-size: 0.75rem !important;
+    padding: 0 !important;
+    border: none !important;
+    cursor: pointer !important;
+}
+
+.accessify-btn-reset:hover {
+    color: white !important;
+}
+
+.accessify-value {
+    font-size: 0.75rem !important;
+    min-width: 2rem !important;
+    text-align: center !important;
+    color: white !important;
+}
+
+/* Chat Modal */
+.accessify-chat-modal {
+    position: fixed !important;
+    inset: 0 !important;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    z-index: 10000 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 1rem !important;
+}
+
+.accessify-chat-container {
+    background: white !important;
+    border-radius: 0.5rem !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1) !important;
+    max-width: 42rem !important;
+    width: 100% !important;
+    max-height: 80vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
+
+.accessify-chat-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 1.5rem !important;
+    border-bottom: 1px solid #e5e7eb !important;
+}
+
+.accessify-chat-title {
+    font-size: 1.125rem !important;
+    font-weight: 600 !important;
+    color: #111827 !important;
+}
+
+.accessify-chat-subtitle {
+    font-size: 0.75rem !important;
+    color: #6b7280 !important;
+    margin-top: 0.25rem !important;
+}
+
+.accessify-chat-close {
+    background: none !important;
+    border: none !important;
+    color: #9ca3af !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+}
+
+.accessify-chat-close:hover {
+    color: #6b7280 !important;
+}
+
+.accessify-chat-messages {
+    flex: 1 !important;
+    overflow-y: auto !important;
+    padding: 1.5rem !important;
+}
+
+.accessify-chat-message {
+    display: flex !important;
+    margin-bottom: 0.75rem !important;
+}
+
+.accessify-chat-message.user {
+    justify-content: flex-end !important;
+}
+
+.accessify-chat-bubble {
+    max-width: 80% !important;
+    padding: 0.75rem 1rem !important;
+    border-radius: 0.5rem !important;
+    font-size: 0.875rem !important;
+}
+
+.accessify-chat-bubble.user {
+    background-color: #2563eb !important;
+    color: white !important;
+}
+
+.accessify-chat-bubble.assistant {
+    background-color: #f3f4f6 !important;
+    color: #111827 !important;
+}
+
+.accessify-chat-empty {
+    text-align: center !important;
+    color: #6b7280 !important;
+    font-size: 0.875rem !important;
+    padding: 2rem !important;
+}
+
+.accessify-chat-thinking {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    padding: 0.75rem 1rem !important;
+    background-color: #f3f4f6 !important;
+    border-radius: 0.5rem !important;
+    max-width: 80% !important;
+}
+
+.accessify-spinner {
+    width: 1rem !important;
+    height: 1rem !important;
+    border: 2px solid #9ca3af !important;
+    border-top-color: transparent !important;
+    border-radius: 50% !important;
+    animation: spin 0.6s linear infinite !important;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.accessify-chat-input-area {
+    padding: 1.5rem !important;
+    border-top: 1px solid #e5e7eb !important;
+}
+
+.accessify-chat-limit-warning {
+    background-color: #fef3c7 !important;
+    border: 1px solid #fcd34d !important;
+    color: #92400e !important;
+    padding: 0.75rem !important;
+    border-radius: 0.5rem !important;
+    font-size: 0.875rem !important;
+    margin-bottom: 0.75rem !important;
+}
+
+.accessify-chat-input-wrapper {
+    display: flex !important;
+    gap: 0.5rem !important;
+}
+
+.accessify-chat-textarea {
+    flex: 1 !important;
+    border: 1px solid #d1d5db !important;
+    border-radius: 0.375rem !important;
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.875rem !important;
+    resize: vertical !important;
+    min-height: 3rem !important;
+    font-family: inherit !important;
+}
+
+.accessify-chat-textarea:focus {
+    outline: none !important;
+    border-color: #2563eb !important;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
+}
+
+.accessify-chat-textarea:disabled {
+    opacity: 0.6 !important;
+    background-color: #f9fafb !important;
+}
+
+.accessify-chat-send {
+    background-color: #2563eb !important;
+    color: white !important;
+    border: none !important;
+    padding: 0.5rem 1rem !important;
+    border-radius: 0.375rem !important;
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+}
+
+.accessify-chat-send:hover:not(:disabled) {
+    background-color: #1d4ed8 !important;
+}
+
+.accessify-chat-send:disabled {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+}
+
+/* Accessibility filters */
+.high-contrast {
+    filter: contrast(1.5);
+}
+
+.grayscale {
+    filter: grayscale(100%);
+}
+
+.high-contrast.grayscale {
+    filter: contrast(1.5) grayscale(100%);
+}

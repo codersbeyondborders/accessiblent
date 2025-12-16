@@ -178,6 +178,90 @@ def apply_fixes(raw_html: str, issues, page_url: str = ""):
                         a.string = pretty
                     break
 
+        # 4) Missing language attribute on <html>
+        elif itype == "MISSING_LANG":
+            html_tag = soup.find("html")
+            if html_tag and not html_tag.get("lang"):
+                # Default to English, could be enhanced with language detection
+                html_tag["lang"] = "en"
+
+        # 5) Missing main landmark
+        elif itype == "MISSING_MAIN_LANDMARK":
+            # Find the body tag
+            body = soup.find("body")
+            if body:
+                # Check if <main> already exists
+                if not soup.find("main"):
+                    # Strategy: wrap the primary content in <main>
+                    # Look for common content containers
+                    main_candidates = (
+                        body.find("div", class_=lambda x: x and any(
+                            term in str(x).lower() for term in ["content", "main", "primary", "container"]
+                        )) or
+                        body.find("div", id=lambda x: x and any(
+                            term in str(x).lower() for term in ["content", "main", "primary"]
+                        ))
+                    )
+                    
+                    if main_candidates:
+                        # Wrap the candidate in <main>
+                        main_tag = soup.new_tag("main")
+                        main_candidates.wrap(main_tag)
+                    else:
+                        # Fallback: wrap all direct children of body (except header/footer/nav) in <main>
+                        main_tag = soup.new_tag("main")
+                        skip_tags = {"header", "footer", "nav", "script", "style"}
+                        content_elements = []
+                        
+                        for child in list(body.children):
+                            # Only process Tag elements (not NavigableString)
+                            if hasattr(child, "name") and child.name and child.name not in skip_tags:
+                                # Check if it's not already a landmark
+                                role = child.get("role") if hasattr(child, "get") else None
+                                if child.name not in {"main", "aside"} and role not in {"banner", "contentinfo", "navigation", "complementary"}:
+                                    content_elements.append(child)
+                        
+                        if content_elements:
+                            # Insert main before the first content element
+                            first_elem = content_elements[0]
+                            first_elem.insert_before(main_tag)
+                            # Move all content elements into main
+                            for elem in content_elements:
+                                main_tag.append(elem.extract())
+
+        # 6) Link without accessible name
+        elif itype == "LINK_NO_NAME" and role == "link":
+            href = attrs.get("href", "")
+            for a in soup.find_all("a", href=href):
+                # Check if link has no text content and no aria-label
+                link_text = a.get_text(strip=True)
+                aria_label = a.get("aria-label", "").strip()
+                
+                if not link_text and not aria_label:
+                    # Generate accessible name from href
+                    if href:
+                        # Try to create meaningful label from URL
+                        if "facebook" in href.lower():
+                            a["aria-label"] = "Visit our Facebook page"
+                        elif "twitter" in href.lower() or "x.com" in href.lower():
+                            a["aria-label"] = "Visit our Twitter page"
+                        elif "linkedin" in href.lower():
+                            a["aria-label"] = "Visit our LinkedIn page"
+                        elif "instagram" in href.lower():
+                            a["aria-label"] = "Visit our Instagram page"
+                        elif "youtube" in href.lower():
+                            a["aria-label"] = "Visit our YouTube channel"
+                        elif "github" in href.lower():
+                            a["aria-label"] = "Visit our GitHub repository"
+                        else:
+                            # Generic fallback based on URL structure
+                            domain = href.split("//")[-1].split("/")[0].replace("www.", "")
+                            a["aria-label"] = f"Visit {domain}"
+                    else:
+                        # No href, use generic label
+                        a["aria-label"] = "Link"
+                    break
+
     # Normalize resource URLs & add <base>
     if page_url:
         normalize_urls(soup, page_url)

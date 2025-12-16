@@ -10,8 +10,8 @@ _pool: Optional[pooling.MySQLConnectionPool] = None
 
 def _conn_config() -> dict:
     """
-    Build mysql-connector config for TiDB Cloud.
-    TLS is enabled by default. If you have a CA bundle, set TIDB_SSL_CA to its path.
+    Build mysql-connector config for TiDB Cloud or local MySQL.
+    TLS is enabled by default for TiDB Cloud. For local MySQL, set TIDB_SSL_DISABLED=true.
     """
     cfg = {
         "host": os.getenv("TIDB_HOST", "127.0.0.1"),
@@ -20,8 +20,8 @@ def _conn_config() -> dict:
         "password": os.getenv("TIDB_PASSWORD", ""),
         "database": os.getenv("TIDB_DB", "accessibility"),
         "autocommit": True,
-        # TiDB Cloud supports TLS. Leave ssl_disabled=False (default). Add ssl_ca if you have it.
-        "ssl_disabled": False,
+        # For local MySQL, disable SSL. For TiDB Cloud, keep it enabled.
+        "ssl_disabled": os.getenv("TIDB_SSL_DISABLED", "false").lower() == "true",
     }
     ssl_ca = os.getenv("TIDB_SSL_CA")
     if ssl_ca:

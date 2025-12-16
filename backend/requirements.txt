@@ -3,7 +3,10 @@ uvicorn[standard]
 python-dotenv
 httpx
 pydantic==2.*
+pydantic[email]
 beautifulsoup4
 lxml
 mysql-connector-python
 openai
+bcrypt
+pyjwt
